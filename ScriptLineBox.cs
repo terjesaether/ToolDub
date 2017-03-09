@@ -15,8 +15,8 @@ namespace Nordubb.DubTool
     internal class ScriptLineBox : UserControl
     {
         private CountdownTimer m_timer;
-        private RichTextBox m_characterbox;
-        private RichTextBox m_timebox;
+        private RichTextBox _mCharacterbox;
+        private RichTextBox _mTimebox;
         private RichTextBox m_linebox;
         private Color m_forecolor;
         private bool m_isfocused;
@@ -33,17 +33,17 @@ namespace Nordubb.DubTool
         {
             LinkedLine = sl;
             InitializeControl();
-            m_characterbox.Text = $"{LinkedLine.Character}:";
+            _mCharacterbox.Text = $"{LinkedLine.Character}:";
             m_linebox.Text = LinkedLine.Line;
-            m_timebox.Text = LinkedLine.Offset.ToString().Substring(3, 5);
+            _mTimebox.Text = LinkedLine.Offset.ToString().Substring(3, 5);
         }
 
         public ScriptLineBox(ScriptLine sl, float fontsize)
           : this(sl)
         {
-            m_characterbox.Font = new Font("Franklin Gothic Medium", fontsize, FontStyle.Regular, GraphicsUnit.Point, 0);
-            m_linebox.Font = m_characterbox.Font;
-            m_timebox.Font = new Font("Franklin Gothic Medium", fontsize, FontStyle.Regular, GraphicsUnit.Point, 0);
+            _mCharacterbox.Font = new Font("Franklin Gothic Medium", fontsize, FontStyle.Regular, GraphicsUnit.Point, 0);
+            m_linebox.Font = _mCharacterbox.Font;
+            _mTimebox.Font = new Font("Franklin Gothic Medium", fontsize, FontStyle.Regular, GraphicsUnit.Point, 0);
         }
 
         public ScriptLineBox(ScriptLine sl, float fontsize, string longestcharname)
@@ -70,27 +70,27 @@ namespace Nordubb.DubTool
 
         public void RefreshOffset()
         {
-            if (m_timebox.Focused)
-                m_timebox.Text = LinkedLine.Offset.ToString().Substring(0, 11);
+            if (_mTimebox.Focused)
+                _mTimebox.Text = LinkedLine.Offset.ToString().Substring(0, 11);
             else
-                m_timebox.Text = LinkedLine.Offset.ToString().Substring(3, 5);
+                _mTimebox.Text = LinkedLine.Offset.ToString().Substring(3, 5);
         }
 
         private void ChangeColor(object sender, EventArgs e)
         {
             m_forecolor = ForeColor;
-            m_characterbox.ForeColor = ForeColor;
-            m_timebox.ForeColor = ForeColor;
+            _mCharacterbox.ForeColor = ForeColor;
+            _mTimebox.ForeColor = ForeColor;
             m_linebox.ForeColor = ForeColor;
         }
 
         private void CharacterLeft(object sender, EventArgs e)
         {
-            string str = m_characterbox.Text;
+            string str = _mCharacterbox.Text;
             if (str.EndsWith(":"))
                 str = str.Substring(0, str.Length - 1);
             else
-                m_characterbox.Text = string.Format("{0}:", m_characterbox.Text);
+                _mCharacterbox.Text = string.Format("{0}:", _mCharacterbox.Text);
             if (!(LinkedLine.Character != str))
                 return;
             SetSaveNeeded();
@@ -103,8 +103,8 @@ namespace Nordubb.DubTool
 
         private void InitializeControl()
         {
-            m_timebox = new RichTextBox();
-            m_characterbox = new RichTextBox();
+            _mTimebox = new RichTextBox();
+            _mCharacterbox = new RichTextBox();
             m_linebox = new RichTextBox();
             m_timer = new CountdownTimer();
             SuspendLayout();
@@ -113,44 +113,44 @@ namespace Nordubb.DubTool
             m_timer.BackColor = Color.Black;
             m_timer.ForeColor = Color.Gray;
             m_timer.Visible = false;
-            m_timebox.Location = new Point(0, 0);
-            m_timebox.Size = new Size(60, 20);
-            m_timebox.TabIndex = 1;
-            m_timebox.Multiline = false;
-            m_timebox.BorderStyle = BorderStyle.None;
-            m_timebox.BackColor = Color.Black;
-            m_timebox.ForeColor = Color.Gray;
-            m_timebox.ScrollBars = RichTextBoxScrollBars.None;
-            m_timebox.ContentsResized += ResizeTime;
-            m_timebox.Enter += TimeBoxEntered;
-            m_timebox.Enter += EditableEntered;
-            m_timebox.Leave += TimeBoxLeft;
-            m_timebox.Leave += EditableLeft;
-            m_timebox.KeyPress += EditableKeyPressed;
-            m_timebox.MouseUp += EditableMouseUp;
-            m_timebox.GotFocus += EditableGotFocus;
-            m_characterbox.Location = new Point(0, 0);
-            m_characterbox.Size = new Size(200, 20);
-            m_characterbox.TabIndex = 0;
-            m_characterbox.Multiline = false;
-            m_characterbox.BorderStyle = BorderStyle.None;
-            m_characterbox.Font = new Font("Franklin Gothic Medium", 26.25f, FontStyle.Regular, GraphicsUnit.Point, 0);
-            m_characterbox.BackColor = Color.Black;
-            m_characterbox.ForeColor = Color.Gray;
-            m_characterbox.ScrollBars = RichTextBoxScrollBars.None;
-            m_characterbox.ContentsResized += ResizeCharacter;
-            m_characterbox.Enter += EditableEntered;
-            m_characterbox.Leave += CharacterLeft;
-            m_characterbox.Leave += EditableLeft;
-            m_characterbox.KeyPress += EditableKeyPressed;
-            m_characterbox.MouseUp += EditableMouseUp;
-            m_characterbox.GotFocus += EditableGotFocus;
+            _mTimebox.Location = new Point(0, 0);
+            _mTimebox.Size = new Size(60, 20);
+            _mTimebox.TabIndex = 1;
+            _mTimebox.Multiline = false;
+            _mTimebox.BorderStyle = BorderStyle.None;
+            _mTimebox.BackColor = Color.Black;
+            _mTimebox.ForeColor = Color.Gray;
+            _mTimebox.ScrollBars = RichTextBoxScrollBars.None;
+            _mTimebox.ContentsResized += ResizeTime;
+            _mTimebox.Enter += TimeBoxEntered;
+            _mTimebox.Enter += EditableEntered;
+            _mTimebox.Leave += TimeBoxLeft;
+            _mTimebox.Leave += EditableLeft;
+            _mTimebox.KeyPress += EditableKeyPressed;
+            _mTimebox.MouseUp += EditableMouseUp;
+            _mTimebox.GotFocus += EditableGotFocus;
+            _mCharacterbox.Location = new Point(0, 0);
+            _mCharacterbox.Size = new Size(200, 20);
+            _mCharacterbox.TabIndex = 0;
+            _mCharacterbox.Multiline = false;
+            _mCharacterbox.BorderStyle = BorderStyle.None;
+            _mCharacterbox.Font = new Font("Franklin Gothic Medium", 26.25f, FontStyle.Regular, GraphicsUnit.Point, 0);
+            _mCharacterbox.BackColor = Color.Black;
+            _mCharacterbox.ForeColor = Color.Gray;
+            _mCharacterbox.ScrollBars = RichTextBoxScrollBars.None;
+            _mCharacterbox.ContentsResized += ResizeCharacter;
+            _mCharacterbox.Enter += EditableEntered;
+            _mCharacterbox.Leave += CharacterLeft;
+            _mCharacterbox.Leave += EditableLeft;
+            _mCharacterbox.KeyPress += EditableKeyPressed;
+            _mCharacterbox.MouseUp += EditableMouseUp;
+            _mCharacterbox.GotFocus += EditableGotFocus;
             m_linebox.Location = new Point(275, 0);
             m_linebox.Size = new Size(400, 20);
             m_linebox.TabIndex = 2;
             m_linebox.Multiline = true;
             m_linebox.BorderStyle = BorderStyle.None;
-            m_linebox.Font = m_characterbox.Font;
+            m_linebox.Font = _mCharacterbox.Font;
             m_linebox.BackColor = Color.Black;
             m_linebox.ForeColor = Color.Gray;
             m_linebox.ScrollBars = RichTextBoxScrollBars.None;
@@ -164,9 +164,9 @@ namespace Nordubb.DubTool
             ForeColorChanged += ChangeColor;
             Click += ScriptLineBox_Click;
             Controls.Add(m_timer);
-            Controls.Add(m_characterbox);
+            Controls.Add(_mCharacterbox);
             Controls.Add(m_linebox);
-            Controls.Add(m_timebox);
+            Controls.Add(_mTimebox);
             Size = new Size(715, 30);
             ResumeLayout(false);
             PerformLayout();
@@ -207,17 +207,17 @@ namespace Nordubb.DubTool
 
         public void PerformFocus(bool forward)
         {
-            if (m_characterbox.Focused && forward || m_linebox.Focused && !forward)
-                m_timebox.Focus();
-            else if (m_timebox.Focused && forward || m_characterbox.Focused && !forward)
+            if (_mCharacterbox.Focused && forward || m_linebox.Focused && !forward)
+                _mTimebox.Focus();
+            else if (_mTimebox.Focused && forward || _mCharacterbox.Focused && !forward)
             {
                 m_linebox.Focus();
             }
             else
             {
-                if ((!m_linebox.Focused || !forward) && (!m_timebox.Focused || forward))
+                if ((!m_linebox.Focused || !forward) && (!_mTimebox.Focused || forward))
                     return;
-                m_characterbox.Focus();
+                _mCharacterbox.Focus();
             }
         }
 
@@ -244,10 +244,10 @@ namespace Nordubb.DubTool
             switch (state)
             {
                 case DubTool.ScriptLineState.Character:
-                    m_characterbox.Focus();
+                    _mCharacterbox.Focus();
                     break;
                 case DubTool.ScriptLineState.Time:
-                    m_timebox.Focus();
+                    _mTimebox.Focus();
                     break;
                 default:
                     m_linebox.Focus();
@@ -258,9 +258,9 @@ namespace Nordubb.DubTool
         private void SaveFocus()
         {
             DubTool.ScriptLineState state = DubTool.ScriptLineState.None;
-            if (m_characterbox.Focused)
+            if (_mCharacterbox.Focused)
                 state = DubTool.ScriptLineState.Character;
-            else if (m_timebox.Focused)
+            else if (_mTimebox.Focused)
                 state = DubTool.ScriptLineState.Time;
             else if (m_linebox.Focused)
                 state = DubTool.ScriptLineState.Line;
@@ -290,8 +290,8 @@ namespace Nordubb.DubTool
 
         private void TimeBoxEntered(object sender, EventArgs e)
         {
-            m_timebox.Text = LinkedLine.Offset.ToString().Substring(0, 11);
-            m_timebox.Width = (int)CreateGraphics().MeasureString(m_timebox.Text, m_timebox.Font, ParentForm.Width).Width + 5;
+            _mTimebox.Text = LinkedLine.Offset.ToString().Substring(0, 11);
+            _mTimebox.Width = (int)CreateGraphics().MeasureString(_mTimebox.Text, _mTimebox.Font, ParentForm.Width).Width + 5;
         }
 
         private void EditableLeft(object sender, EventArgs e)
@@ -315,7 +315,7 @@ namespace Nordubb.DubTool
             bool flag = true;
             try
             {
-                zero = MidiTime.Parse(m_timebox.Text);
+                zero = MidiTime.Parse(_mTimebox.Text);
             }
             catch (FormatException ex)
             {
@@ -331,7 +331,7 @@ namespace Nordubb.DubTool
             }
             if (flag)
             {
-                m_timebox.Width = (int)CreateGraphics().MeasureString(m_timebox.Text, m_timebox.Font, ParentForm.Width).Width + 5;
+                _mTimebox.Width = (int)CreateGraphics().MeasureString(_mTimebox.Text, _mTimebox.Font, ParentForm.Width).Width + 5;
                 if (!LinkedLine.Offset.Equals(zero))
                 {
                     SetSaveNeeded();
@@ -340,7 +340,7 @@ namespace Nordubb.DubTool
                     SortScript();
                 }
                 else
-                    m_timebox.Text = LinkedLine.Offset.ToString().Substring(3, 5);
+                    _mTimebox.Text = LinkedLine.Offset.ToString().Substring(3, 5);
             }
             else
             {
@@ -358,21 +358,21 @@ namespace Nordubb.DubTool
 
         private void ResizeCharacter(object sender, ContentsResizedEventArgs e)
         {
-            if (m_characterbox.Focused)
+            if (_mCharacterbox.Focused)
                 return;
-            int width = (int)CreateGraphics().MeasureString("00.00.00.00", m_timebox.Font, ParentForm.Width).Width;
+            int width = (int)CreateGraphics().MeasureString("00.00.00.00", _mTimebox.Font, ParentForm.Width).Width;
             if (m_longestchar != null)
-                m_characterbox.Width = (int)CreateGraphics().MeasureString(m_longestchar, m_characterbox.Font, ParentForm.Width).Width + 5;
+                _mCharacterbox.Width = (int)CreateGraphics().MeasureString(m_longestchar, _mCharacterbox.Font, ParentForm.Width).Width + 5;
             else
-                m_characterbox.Width = (int)CreateGraphics().MeasureString(m_characterbox.Text, m_characterbox.Font, ParentForm.Width).Width + 5;
-            m_characterbox.Height = e.NewRectangle.Height + 5;
+                _mCharacterbox.Width = (int)CreateGraphics().MeasureString(_mCharacterbox.Text, _mCharacterbox.Font, ParentForm.Width).Width + 5;
+            _mCharacterbox.Height = e.NewRectangle.Height + 5;
             m_timer.Size = new Size(Height, Height);
-            m_characterbox.SelectAll();
-            m_characterbox.SelectionAlignment = HorizontalAlignment.Right;
-            m_characterbox.Select(0, 0);
-            m_timebox.Left = m_characterbox.Width + 25;
-            m_linebox.Left = Math.Max(m_characterbox.Width + 25 + m_timer.Width + 25, m_timebox.Left + width);
-            m_timer.Left = m_timebox.Left + m_timebox.Width + (m_linebox.Left - (m_timebox.Left + m_timebox.Width) - m_timer.Width) / 2;
+            _mCharacterbox.SelectAll();
+            _mCharacterbox.SelectionAlignment = HorizontalAlignment.Right;
+            _mCharacterbox.Select(0, 0);
+            _mTimebox.Left = _mCharacterbox.Width + 25;
+            m_linebox.Left = Math.Max(_mCharacterbox.Width + 25 + m_timer.Width + 25, _mTimebox.Left + width);
+            m_timer.Left = _mTimebox.Left + _mTimebox.Width + (m_linebox.Left - (_mTimebox.Left + _mTimebox.Width) - m_timer.Width) / 2;
             m_linebox.Width = Width - m_linebox.Left;
         }
 
@@ -384,10 +384,10 @@ namespace Nordubb.DubTool
 
         private void ResizeTime(object sender, ContentsResizedEventArgs e)
         {
-            if (m_timebox.Focused)
+            if (_mTimebox.Focused)
                 return;
-            m_timebox.Width = (int)CreateGraphics().MeasureString(m_timebox.Text, m_timebox.Font, ParentForm.Width).Width + 5;
-            m_timebox.Height = e.NewRectangle.Height + 10;
+            _mTimebox.Width = (int)CreateGraphics().MeasureString(_mTimebox.Text, _mTimebox.Font, ParentForm.Width).Width + 5;
+            _mTimebox.Height = e.NewRectangle.Height + 10;
         }
 
         private void ScriptLineBox_Click(object sender, EventArgs e)
