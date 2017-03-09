@@ -257,7 +257,12 @@ namespace Nordubb.DubTool
         {
             if (e.KeyCode == Keys.Delete)
             {
-                DeleteLine();
+                DialogResult dialogResult = MessageBox.Show("Sure?", "Sure ya wanna delete?", MessageBoxButtons.YesNo);
+                if (dialogResult == DialogResult.Yes)
+                {
+                    //do something
+                    DeleteLine();
+                }
             }
             else
             {
